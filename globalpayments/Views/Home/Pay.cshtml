@@ -1,79 +1,44 @@
-﻿@{ 
-    Layout = null;
-}
-@model GlobalPayments.Api.PaymentMethods.CreditCardData
+﻿@model GlobalPayments.Api.PaymentMethods.CreditCardData
+<br /><br />
+<!-- Basic HTML form given as an example -->
+<form name="myForm" method="POST" autocomplete="off">
+    <label for="cardNumber">Card Number</label>
+    <input type="tel" id="cardNumber" name="Number" /><br><br>
+    <label for="cardholderName">Cardholder Name</label>
+    <input type="text" id="cardholderName" name="CardHolderName" /><br><br>
+    <p class="twoColumn">
+        <label>Expiry Date</label>
+        <input type="tel" id="expiryDateMM" name="ExpMonth" placeholder="MM" class="small" />
+        <input type="tel" id="expiryDateYY" name="ExpYear" placeholder="YY" class="small" />
+    </p>
+    <p class="twoColumn">
+        <label for="cvn">Security Code</label>
+        <input type="tel" id="cvn" name="Cvn" class="small" />
+    </p>
+    <p class="clearAll">
+        <input value="Pay Now" type="submit" name="submit" onclick="validate();" />
+    </p>
+</form>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Basic Validation Example</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="~/Scripts/Custom/rxp-js.js"></script> <!-- Available at https://github.com/realexpayments -->
-    <!-- Basic form styling given as an example -->
-    <style type="text/css">
-        label {
-            display: block;
-            font-size: 12px;
-            font-family: arial;
-        }
-
-        input {
-            width: 200px;
-        }
-
-            input.small {
-                width: 50px;
-            }
-
-        .twoColumn {
-            float: left;
-            margin: 0 30px 20px 0;
-        }
-
-        .clearAll {
-            clear: both;
-        }
-    </style>
-</head>
-<body>
-    <!-- Basic HTML form given as an example -->
-    <form name="myForm" method="POST" autocomplete="off">
-        <label for="cardNumber">Card Number</label>
-        <input type="tel" id="cardNumber" name="Number" /><br><br>
-        <label for="cardholderName">Cardholder Name</label>
-        <input type="text" id="cardholderName" name="CardHolderName" /><br><br>
-        <p class="twoColumn">
-            <label>Expiry Date</label>
-            <input type="tel" id="expiryDateMM" name="ExpMonth" placeholder="MM" class="small" />
-            <input type="tel" id="expiryDateYY" name="ExpYear" placeholder="YY" class="small" />
-        </p>
-        <p class="twoColumn">
-            <label for="cvn">Security Code</label>
-            <input type="tel" id="cvn" name="Cvn" class="small" />
-        </p>
-        <p class="clearAll">
-            <input value="Pay Now" type="submit" name="submit" onclick="validate();" />
-        </p>
-    </form>
+@section scripts{
     <script type="text/javascript">
         function validate() { // Basic form validation using the JS Library given as an example
-          var cardNumberCheck = RealexRemote.validateCardNumber(document.getElementById('cardNumber').value);
-          var cardHolderNameCheck = RealexRemote.validateCardHolderName(document.getElementById('cardholderName').value);
-          var expiryDate = document.getElementById('expiryDateMM').value.concat(document.getElementById('expiryDateYY').value);
-          var expiryDateFormatCheck = RealexRemote.validateExpiryDateFormat(expiryDate);
-          var expiryDatePastCheck = RealexRemote.validateExpiryDateNotInPast(expiryDate);
-          if (document.getElementById('cardNumber').value.charAt(0) == "3") {
-            cvnCheck = RealexRemote.validateAmexCvn(document.getElementById('cvn').value);
-          } else {
-            cvnCheck = RealexRemote.validateCvn(document.getElementById('cvn').value);
-          }
-          if (cardNumberCheck == false || cardHolderNameCheck == false || expiryDateFormatCheck == false || expiryDatePastCheck == false || cvnCheck == false) {
-            // code here to inform the cardholder of an input error and prevent the form submitting
-            return false;
-          } else {
-            return true;
-          }
+            var cardNumberCheck = RealexRemote.validateCardNumber(document.getElementById('cardNumber').value);
+            var cardHolderNameCheck = RealexRemote.validateCardHolderName(document.getElementById('cardholderName').value);
+            var expiryDate = document.getElementById('expiryDateMM').value.concat(document.getElementById('expiryDateYY').value);
+            var expiryDateFormatCheck = RealexRemote.validateExpiryDateFormat(expiryDate);
+            var expiryDatePastCheck = RealexRemote.validateExpiryDateNotInPast(expiryDate);
+            if (document.getElementById('cardNumber').value.charAt(0) == "3") {
+                cvnCheck = RealexRemote.validateAmexCvn(document.getElementById('cvn').value);
+            } else {
+                cvnCheck = RealexRemote.validateCvn(document.getElementById('cvn').value);
+            }
+            if (cardNumberCheck == false || cardHolderNameCheck == false || expiryDateFormatCheck == false || expiryDatePastCheck == false || cvnCheck == false) {
+                // code here to inform the cardholder of an input error and prevent the form submitting
+                return false;
+            } else {
+                return true;
+            }
         }
     </script>
-</body>
-</html>
+}

@@ -6,6 +6,32 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/Custom/rxp-js.js"></script> <!-- Available at https://github.com/realexpayments -->
+    <!-- Basic form styling given as an example -->
+    <style type="text/css">
+        label {
+            display: block;
+            font-size: 12px;
+            font-family: arial;
+        }
+
+        input {
+            width: 200px;
+        }
+
+            input.small {
+                width: 50px;
+            }
+
+        .twoColumn {
+            float: left;
+            margin: 0 30px 20px 0;
+        }
+
+        .clearAll {
+            clear: both;
+        }
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -21,8 +47,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Pay", "Pay", "Home")</li>
                 </ul>
             </div>
         </div>
